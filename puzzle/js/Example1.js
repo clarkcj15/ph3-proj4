@@ -6,7 +6,7 @@ var config = {
     physics: {
         default: "arcade",
         arcade: {
-            gravity: { x: 200, y: 200}
+            gravity: { x: 0, y: 10}
         }
     },
     scene: {
@@ -16,11 +16,12 @@ var config = {
     },
 };
 
-var game = new Phaser.Game(config);
 
 var ground;
 var player;
+var cursors;
 
+var game = new Phaser.Game(config);
 
 // class Example1 extends Phaser.Scene {
 //     constructor() {
@@ -45,51 +46,79 @@ var player;
         ground = this.physics.add.staticGroup()
         
         //create the ground and call on various size platforms
-        ground.create(400, 450, 'GRND').setScale(2).refreshBody();
-
+        ground.create(400, 460, 'GRND').setScale(2).refreshBody();
+        
         //Jumpable platforms
         ground.create(200, 100, 'medBar');
         ground.create(300, 250, 'smBar');
         
-        this.anims.create({
-            key: "ship",
-            frames: this.anims.generateFrameNumbers('ship'),
-            frameRate: 8,
-            repeat: -1
-        });
-        // player.setBounce(0.2);
-        // player.setCollideWorldBounds(true);
+        player = this.physics.add.sprite(100, 450, 'ship');
         
-        this.player = new Player(
-            this,
-            this.game.config.width * 0.5,
-            this.game.config.height * 0.5,
-            "ship"
-            );
-            console.log(this.player);
+        // this.anims.create({
+        //     key: "ship",
+        //     frames: this.anims.generateFrameNumbers('ship'),
+        //     frameRate: 8,
+        //     repeat: -1
+        // });
+        
+        // this.player = new Player(
+        //     this,
+        //     this.game.config.width * 0.5,
+        //     this.game.config.height * 0.5,
+        //     "ship"
+        // );
+            // console.log(this.player);
+        
+        player.setBounce(0.2);
+        player.setCollideWorldBounds(true);
+        this.physics.add.collider(player, ground);
+        
+        this.physics.world.bounds.width = ground.width;
+        // this.physics.world.bounds.height = ground.height;
             
-            // this.physics.add.collider(player, ground);
-
-
-          this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-          this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-          this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-          this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
-    
+            
+        this.keyW = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        this.keyS = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        this.keyA = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        this.keyD = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+            
     }
     function update() {
-        this.player.update();
-          if (this.keyW.isDown) {
-            this.player.moveUp();
-          }
-          else if (this.keyS.isDown) {
-            this.player.moveDown();
-          }
-          if (this.keyA.isDown) {
-            this.player.moveLeft();
-          }
-          else if (this.keyD.isDown) {
-            this.player.moveRight();
-          }
-    }
+
+        cursors = this.input.keyboard.createCursorKeys();
+
+        if (cursors.left.isDown)
+    {
+        player.setVelocityX(-160);
+        player.anims.play('left', true);
+     }
+     else if (cursors.right.isDown)
+     {
+         player.setVelocityX(160);
+         player.anims.play('right', true);
+     }
+
+     if (cursors.up.isDown && player.body.touching.down)
+     {
+         player.setVelocityY(-330);
+        }
+        
+        
+        
+        
+        
+        // this.player.update();
+        // if (this.keyW.isDown) {
+        //     this.player.moveUp();
+        // }
+        // else if (this.keyS.isDown) {
+        //     this.player.moveDown();
+        // }
+        // if (this.keyA.isDown) {
+        //     this.player.moveLeft();
+        // }
+        // else if (this.keyD.isDown) {
+        //     this.player.moveRight();
+        // }
+        }
 // }

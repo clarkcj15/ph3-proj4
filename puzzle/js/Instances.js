@@ -6,13 +6,14 @@ class Instance extends Phaser.GameObjects.Sprite {
         this.scene.add.existing(this);
       
         this.scene.physics.world.enableBody(this, 0);
+        this.setData("type", type);
     }
 }
 
     class Player extends Instance {
         constructor(scene, x, y, key) {
             super(scene, x, y, "Player");
-            this.setData("speed", 300);
+            this.setData("speed", 30);
         }
         moveUp() {
             this.body.velocity.y = -this.getData("speed");
