@@ -1,59 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.52.0/dist/phaser-arcade-physics.min.js"></script>
     <script src="js/phaser.js"></script>
 </head>
 <body>
-    <script type="text/javascript">
-    
-    
-    
-    var config = {
-        type: Phaser.AUTO,
-        width: 800,
-        height: 600,
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: {y: 500},
-                debug: false
-            }
-        },
-        scene: {
-            key: 'main',
-            preload: preload,
-            create: create,
-            update: update
-        }
-    };
-    
-    var game = new Phaser.Game(config);
-    
-    var map;
-    var player;
-    var cursors;
-    var groundLayer, coinLayer;
-    var text;
-    
-    function preload() {
-        this.load.tilemapTiledJSON('map', './js/tilemap.kson');
-        this.load.spritesheet('tiles', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612208950/tile_wf3k0f.png');
-        this.load.image('spoons', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1611871006/spoon_qhjieq.png');
-        this.load.spritesheet('ship', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612157361/sprPlayer_ockfo0.png', {
-            frameWidth: 16,
-            frameHeight: 16
-        });
-    }
-    
-    function create() {
-        
-    }
-    
-    function update() {
-        
-    }
-</script>
+    <script src="js/Example1.js"></script>
+    <script src="js/Instances.js"></script>
+    <!-- <script src=""></script> -->
+    <!-- <script src="js/game.js"></script> -->
 </body>
 </html>
