@@ -133,7 +133,7 @@ var game = new Phaser.Game(config);
         }
     }
 
-    function collectFood (player, star)
+    function collectFood (player, food)
     {
         food.destroy(true, true);
 
