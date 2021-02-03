@@ -7,6 +7,7 @@ var config = {
     physics: {
         default: "arcade",
         arcade: {
+            debug: true,
             gravity: { y: 200}
         }
     },
@@ -29,15 +30,16 @@ var game = new Phaser.Game(config);
 //         super({ key: "Example1"});
 //     }
     function preload() {
-        this.load.image("background", 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1611793099/EveningSky_wmwlur.jpg');
+        this.load.image("background", 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1611793099/MorningSky_krfeyp.jpg');
         this.load.image("ground", 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1611869300/ground_djhx2a.png');
-        this.load.spritesheet("ship", "https://res.cloudinary.com/dwpxepy1m/image/upload/v1611850676/NEWFISH_bc1sky.png",{
-            frameWidth: 60,
-            frameHeight: 40
+        this.load.spritesheet("ship", "https://res.cloudinary.com/dwpxepy1m/image/upload/v1612316479/ICS_Quebec_tvakfx.svg",{
+            frameWidth: 25,
+            frameHeight: 25,
         });
         this.load.image('GRND', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1611869300/ground_djhx2a.png');
-        this.load.image('smBar', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1611875724/newSmall_hn8arr.png');
-        this.load.image('medBar', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1611875724/newMedBar_ar1qct.png');
+        this.load.image('smBar', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612328629/small_b1he4c.png');
+        this.load.image('medBar', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612329534/med_h8ynjd.png');
+        this.load.image('lgBar', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612329401/lorge_xtzlgj.png');
     }
 
     function create() {
@@ -47,11 +49,23 @@ var game = new Phaser.Game(config);
         ground = this.physics.add.staticGroup()
         
         //create the ground and call on various size platforms
-        ground.create(400, 460, 'GRND').setScale(2).refreshBody();
+        // ground.create(400, 460, 'GRND').setScale(2).refreshBody();
         
         //Jumpable platforms
-        ground.create(300, 250, 'medBar');
-        ground.create(300, 250, 'smBar');
+        // ground.create(450, 470, 'smBar');
+        // ground.create(100, 530, 'smBar');
+        ground.create(299, 510, 'smBar');
+        // ground.create(380, 220, 'smBar');
+        // ground.create(260, 170, 'smBar');
+        ground.create(700, 510, 'smBar');
+        ground.create(700, 340, 'medBar');
+        ground.create(780, 90, 'medBar');
+        ground.create(30, 430, 'medBar');
+        ground.create(500, 190, 'medBar');
+        ground.create(400, 400, 'medBar');
+        ground.create(10, 200, 'medBar');
+        ground.create(330, 90, 'lgBar');
+        ground.create(110, 310, 'lgBar');
         
         player = this.physics.add.sprite(90, 580, 'ship');
         
@@ -92,12 +106,12 @@ var game = new Phaser.Game(config);
 
         if (cursors.left.isDown)
     {
-        player.body.setVelocityX(-50);
+        player.body.setVelocityX(-90);
         // player.anims.play('left', true);
      }
      else if (cursors.right.isDown)
      {
-         player.body.setVelocityX(50);
+         player.body.setVelocityX(90);
         //  player.anims.play('right', true);
      }
 
