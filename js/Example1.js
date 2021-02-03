@@ -1,3 +1,4 @@
+// import Phaser from 'phaser';
 var config = {
     type: Phaser.Auto,
     width: 800,
