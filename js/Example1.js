@@ -7,7 +7,7 @@ var config = {
     physics: {
         default: "arcade",
         arcade: {
-            debug: true,
+            // debug: true,
             gravity: { y: 200}
         }
     },
@@ -25,6 +25,8 @@ var cursors;
 var food;
 var scoreText;
 var score = 0;
+var winScore = 100;
+var winFood
 var gameOver = false;
 
 var game = new Phaser.Game(config);
@@ -45,6 +47,7 @@ var game = new Phaser.Game(config);
         this.load.image('medBar', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612329534/med_h8ynjd.png');
         this.load.image('lgBar', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612329401/lorge_xtzlgj.png');
         this.load.image('food', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612330981/food_k1oqz8.png');
+        this.load.image('winFood', 'https://res.cloudinary.com/dwpxepy1m/image/upload/v1612478367/win_ruwog3.png');
     }
 
     function create() {
@@ -87,7 +90,8 @@ var game = new Phaser.Game(config);
         });
 
 
-        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '18px', fill: '#000' });
+        titleText =  this.add.text(400, 16, 'Block Hunt', { fontSize: '35px', fill: '#9461BB '})
 
         //Allows two objects to interact with physics
         this.physics.add.collider(player, ground);
@@ -113,25 +117,29 @@ var game = new Phaser.Game(config);
         player.body.velocity.x = 0;
 
         if (cursors.left.isDown)
-    {
-        player.body.setVelocityX(-90);
-        // player.anims.play('left', true);
-     }
-     else if (cursors.right.isDown)
-     {
-         player.body.setVelocityX(90);
-        //  player.anims.play('right', true);
-     }
-
-    //  if (cursors.up.isDown)
-    // {
-    //     player.body.setVelocityY(-50);
-    // }
-    if (cursors.up.isDown && player.body.onFloor())
         {
-            player.body.velocity.y = -220;
+            player.body.setVelocityX(-90);
+            // player.anims.play('left', true);
         }
-    }
+        else if (cursors.right.isDown)
+        {
+            player.body.setVelocityX(90);
+            //  player.anims.play('right', true);
+        }
+        
+        //  if (cursors.up.isDown)
+        // {
+            //     player.body.setVelocityY(-50);
+            // }
+            if (cursors.up.isDown && player.body.onFloor())
+            {
+                player.body.velocity.y = -220;
+            }
+            
+        if (score === winScore) {
+            food.create(700, 490, 'winFood');
+        }
+        }
 
     function collectFood (player, food)
     {
@@ -140,14 +148,4 @@ var game = new Phaser.Game(config);
         //  Add and update the score
         score += 10;
         scoreText.setText('Score: ' + score);
-
-        if (food.countActive(true) === 0)
-        {
-            //  A new batch of food to collect
-            food.children.iterate(function (child) {
-
-                child.enableBody(true, child.x, 0, true, true);
-
-            });
-        }
     }
