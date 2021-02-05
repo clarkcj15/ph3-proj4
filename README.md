@@ -20,3 +20,5 @@ This code is in relation to Instances.js -- Creating a new class of platyer and 
             // console.log(this.player);
 
 https://clarkcj15.github.io/ph3-proj4/
+
+https://www.youtube.com/watch?v=7cpZ5Y7THmo
